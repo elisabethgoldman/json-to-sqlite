@@ -28,7 +28,7 @@ def main():
     parser.add_argument('--input_json',
                         required=True
     )
-    parser.add_argument('--run_uuid',
+    parser.add_argument('--job_uuid',
                         required=True
     )
     parser.add_argument('--table_name',
@@ -37,12 +37,12 @@ def main():
 
     args = parser.parse_args()
     input_json = args.input_json
-    run_uuid = args.run_uuid
+    job_uuid = args.job_uuid
     table_name = args.table_name
 
-    logger = setup_logging(args, run_uuid)
+    logger = setup_logging(args, job_uuid)
 
-    sqlite_name = run_uuid + '.db'
+    sqlite_name = job_uuid + '.db'
     engine_path = 'sqlite:///' + sqlite_name
     engine = sqlalchemy.create_engine(engine_path, isolation_level='SERIALIZABLE')
 
