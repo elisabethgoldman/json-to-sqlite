@@ -5,6 +5,7 @@ MAINTAINER Jeremiah H. Savage <jeremiahsavage@gmail.com>
 ENV version 0.13
 
 RUN apt-get update \
+    && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y \
        python3-pandas \
        python3-pip \
