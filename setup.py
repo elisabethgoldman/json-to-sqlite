@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 setup(name = 'json-to-sqlite',
       author = 'Jeremiah H. Savage',
       author_email = 'jeremiahsavage@gmail.com',
-      version = 0.13,
+      version = 0.14,
       description = 'convert to json to column based sqlite',
       url = 'https://github.com/jeremiahsavage/json-to-sqlite',
       license = 'Apache 2.0',
