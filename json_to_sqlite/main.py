@@ -49,7 +49,7 @@ def main():
     time_seconds = time.time()
     datetime_now = str(datetime.datetime.now())
 
-    data = json.loads(input_json)
+    data = json.load(input_json)
     
     data['datetime_now'] = datetime_now
     data['time_seconds'] = [time_seconds]
