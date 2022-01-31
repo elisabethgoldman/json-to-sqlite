@@ -1,5 +1,6 @@
-from .main import main
 import sys
+
+from json_to_sqlite.main import main
 
 if __name__ == '__main__':
     sys.exit(main())

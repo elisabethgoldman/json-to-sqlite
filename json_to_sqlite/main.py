@@ -7,12 +7,13 @@ import logging
 import os
 import time
 
-import sqlalchemy
 import pandas as pd
+import sqlalchemy
 
-def setup_logging(args, uuid):
+
+def setup_logging(uuid: str) -> logging.Logger:
     logging.basicConfig(
-        filename=os.path.join(uuid + '.log'),
+        filename=os.path.join(f"{uuid}.log"),
         level=logging.INFO,
         filemode='w',
         format='%(asctime)s %(levelname)s %(message)s',
@@ -22,28 +23,21 @@ def setup_logging(args, uuid):
     logger = logging.getLogger(__name__)
     return logger
 
-def main():
+
+def main() -> int:
     parser = argparse.ArgumentParser('convert json to column based sqlite')
 
-    parser.add_argument('--input_json',
-                        required=True
-    )
-    parser.add_argument('--job_uuid',
-                        required=True
-    )
-    parser.add_argument('--table_name',
-                        required=True
-    )
+    parser.add_argument('--input_json', required=True)
+    parser.add_argument('--job_uuid', required=True)
+    parser.add_argument('--table_name', required=True)
 
     args = parser.parse_args()
     input_json = args.input_json
     job_uuid = args.job_uuid
     table_name = args.table_name
 
-    logger = setup_logging(args, job_uuid)
-
-    sqlite_name = job_uuid + '.db'
-    engine_path = 'sqlite:///' + sqlite_name
+    sqlite_name = f"{job_uuid}.db"
+    engine_path = f"sqlite:///{sqlite_name}"
     engine = sqlalchemy.create_engine(engine_path, isolation_level='SERIALIZABLE')
 
     time_seconds = time.time()
@@ -51,13 +45,14 @@ def main():
 
     with open(input_json) as f:
         data = json.load(f)
-    
+
     data['datetime_now'] = datetime_now
     data['time_seconds'] = [time_seconds]
 
     df = pd.DataFrame(data)
     df.to_sql(table_name, engine, if_exists='append')
-    return
+    return 0
+
 
 if __name__ == '__main__':
     main()
