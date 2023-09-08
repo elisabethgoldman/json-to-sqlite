@@ -10,7 +10,8 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY ./ /opt
 
 WORKDIR /opt
- 
+
+RUN pip install greenlet==2.0.0
 RUN pip install tox && tox -p
 
 FROM python:3.10
